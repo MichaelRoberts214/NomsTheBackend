@@ -73,6 +73,7 @@ router.route('/restaurants/:restaurant_id')
         res.json({ message: 'Restaurant updated' });
       });
     })
+   })
 
   .delete(function(req, res) {
       Restaurant.remove({

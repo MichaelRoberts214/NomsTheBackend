@@ -1,7 +1,6 @@
 var express    = require('express');
 var bodyParser = require('body-parser');
 var mongoose   = require('mongoose');
-var uriUtil = require('mongodb-uri');
 var Restaurant = require('./app/models/restaurant');
 
 var app        = express();
@@ -10,12 +9,7 @@ app.use(bodyParser.json());
 var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };       
 
-
-// mongoose.connect('mongodb://node:node@novus.modulusmongo.net:27017/Iganiq8o');
 mongoose.connect('mongodb://admin:admin@ds059644.mongolab.com:59644/nomsdb');
-// var mongodbUri = 'mongodb://admin:admin@ds059644.mongolab.com:59644/nomsdb';
-// var mongooseUri = uriUtil.formatMongoose(mongodbUri);
-// mongoose.connect(mongooseUri, options);
 
 var conn = mongoose.connection;  
 conn.on('error', console.error.bind(console, 'connection error:'));  

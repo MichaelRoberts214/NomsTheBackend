@@ -1,9 +1,14 @@
 var express    = require('express');
 var bodyParser = require('body-parser');
+var mongoose   = require('mongoose');
+var Restaurant = require('./app/models/restaurant');
 
 var app        = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// mongoose.connect('mongodb://node:node@novus.modulusmongo.net:27017/Iganiq8o');
+mongoose.connect('mongodb://admin:admin@ds059644.mongolab.com:59644/nomsdb');
 
 var port = process.env.PORT || 8080;
 

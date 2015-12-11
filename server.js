@@ -5,6 +5,10 @@ var app        = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+var mongoose   = require('mongoose');
+// mongoose.connect('mongodb://node:node@novus.modulusmongo.net:27017/Iganiq8o');
+mongoose.connect('mongodb://admin:admin@ds059644.mongolab.com:59644/nomsdb');
+
 var port = process.env.PORT || 8080;
 
 // API ROUTES

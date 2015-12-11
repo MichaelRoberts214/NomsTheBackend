@@ -1,9 +1,10 @@
 {
-    "name": "NomsTheBackend",
-    "main": "server.js",
-    "dependencies": {
-        "express": "~4.0.0",
-        "mongoose": "~3.6.13",
-        "body-parser": "~1.0.1"
-    }
+  "name": "NomsTheBackend",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "~1.0.1",
+    "express": "~4.0.0",
+    "mongodb-uri": "^0.9.7",
+    "mongoose": "4.3.0"
+  }
 }

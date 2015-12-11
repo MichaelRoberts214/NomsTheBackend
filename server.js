@@ -16,6 +16,13 @@ conn.on('error', console.error.bind(console, 'connection error:'));
 
 var port = process.env.PORT || 8080;
 
+// Enable CORS
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // API ROUTES
 var router = express.Router();
 

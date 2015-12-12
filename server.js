@@ -19,6 +19,7 @@ var port = process.env.PORT || 8080;
 // Enable CORS
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
+  res.header("Content-Type", "application/json");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
@@ -39,8 +40,10 @@ router.get('/', function(req, res) {
 
 router.route('/restaurants')
   .post(function(req, res) {
+    console.log(req.body);
     var restaurant = new Restaurant();
     restaurant.name = req.body.name;
+    restaurant.votes = req.body.votes;
     restaurant.save(function(err) {
       if (err) {
       	res.send(500, { error: 'POST restaurants failed.' });

@@ -58,7 +58,7 @@ router.route('/restaurants')
       if (err) {
         res.send(500, {error: 'GET restaurants failed.'});
       } else {
-      	res.status(200).json(restaurants);
+      	res.status(200).json({"restaurants": restaurants});
       }
     });
   });
@@ -69,7 +69,7 @@ router.route('/restaurants/:restaurant_id')
       if (err) {
         res.status(500).send(err);
       } else {
-    		res.status(200).json(restaurant);
+    		res.status(200).json({"restaurant": restaurant});
       }
     });
   })

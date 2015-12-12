@@ -80,7 +80,8 @@ router.route('/restaurants/:restaurant_id')
       if (err) {
         res.status(500).send(err);
       }
-      restaurant.name = req.body.name;
+      restaurant.name = req.body.name || restaurant.name;
+      restaurant.votes = req.body.votes || restaurant.votes;
       restaurant.save(function(err) {
         if (err) {
           res.status(500).send(err);

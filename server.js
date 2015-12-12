@@ -16,6 +16,13 @@ conn.on('error', console.error.bind(console, 'connection error:'));
 
 var port = process.env.PORT || 8080;
 
+// Enable CORS
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // API ROUTES
 var router = express.Router();
 
@@ -27,7 +34,7 @@ router.use(function(req, res, next) {
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
-  res.json({ message: 'Welcome to noms api' });   
+  res.status(200).json({ message: 'Welcome to Noms: The Api™' });   
 });
 
 router.route('/restaurants')
@@ -38,7 +45,7 @@ router.route('/restaurants')
       if (err) {
       	res.send(500, { error: 'POST restaurants failed.' });
       } else {
-      	res.json({ message: 'Restaurant created.' });
+      	res.status(200).json({ message: 'Restaurant created.' });
       }
     });
   })
@@ -48,7 +55,7 @@ router.route('/restaurants')
       if (err) {
         res.send(500, {error: 'GET restaurants failed.'});
       } else {
-      	res.json(restaurants);
+      	res.status(200).json(restaurants);
       }
     });
   });
@@ -57,24 +64,24 @@ router.route('/restaurants/:restaurant_id')
   .get(function(req, res) {
     Restaurant.findById(req.params.restaurant_id, function(err, restaurant) {
       if (err) {
-        res.send(err);
+        res.status(500).send(err);
       } else {
-    		res.json(bear);
+    		res.status(200).json(restaurant);
       }
     });
   })
 
   .put(function(req, res) {
-    Restaurant.findById(req.params.bear_id, function(err, restaurant) {
+    Restaurant.findById(req.params.restaurant_id, function(err, restaurant) {
       if (err) {
-        res.send(err);
+        res.status(500).send(err);
       }
       restaurant.name = req.body.name;
       restaurant.save(function(err) {
         if (err) {
-          res.send(err);
+          res.status(500).send(err);
         }
-        res.json({ message: 'Restaurant updated' });
+        res.status(200).json({ message: 'Restaurant updated' });
       });
     })
    })
@@ -84,9 +91,9 @@ router.route('/restaurants/:restaurant_id')
         _id: req.params.restaurant_id
       }, function(err, restaurant) {
         if (err) {
-            res.send(err);
+            res.status(500).send(err);
         }
-        res.json({ message: 'Successfully deleted.' });
+        res.status(200).json({ message: 'Successfully deleted.' });
       });
     });
 

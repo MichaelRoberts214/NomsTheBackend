@@ -45,10 +45,10 @@ router.route('/restaurants')
     restaurant.name = req.body.restaurant.name || req.body.name || restaurant.name;
     restaurant.votes = req.body.restaurant.votes || req.body.votes || restaurant.votes;
     restaurant.save(function(err) {
-      if (err) {
+      if (err, restaurants) {
       	res.send(500, { error: 'POST restaurants failed.' });
       } else {
-      	res.status(200).json({ message: req.body });
+      	res.status(200).json(restaurants);
       }
     });
   })
@@ -81,11 +81,11 @@ router.route('/restaurants/:restaurant_id')
       }
       restaurant.name = req.body.restaurant.name || req.body.name || restaurant.name;
       restaurant.votes = req.body.restaurant.votes || req.body.votes || restaurant.votes;
-      restaurant.save(function(err) {
+      restaurant.save(function(err, restaurant) {
         if (err) {
           res.status(500).send(err);
         }
-        res.status(200).json({ message: req.body });
+        res.status(200).json(restaurant);
       });
     })
    })

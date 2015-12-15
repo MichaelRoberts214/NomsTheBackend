@@ -48,7 +48,7 @@ router.route('/restaurants')
       if (err) {
       	res.send(500, { error: 'POST restaurants failed.' });
       } else {
-      	res.status(200).json({ message: 'Restaurant created.' });
+      	res.status(200).json({ message: req.body });
       }
     });
   })
@@ -85,7 +85,7 @@ router.route('/restaurants/:restaurant_id')
         if (err) {
           res.status(500).send(err);
         }
-        res.status(200).json({ message: 'Restaurant updated' });
+        res.status(200).json({ message: req.body });
       });
     })
    })

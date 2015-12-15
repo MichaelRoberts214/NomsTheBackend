@@ -42,8 +42,8 @@ router.get('/', function(req, res) {
 router.route('/restaurants')
   .post(function(req, res) {
     var restaurant = new Restaurant();
-    restaurant.name = req.body.name;
-    restaurant.votes = req.body.votes;
+    restaurant.name = req.body.restaurant.name || req.body.name || restaurant.name;
+    restaurant.votes = req.body.restaurant.votes || req.body.votes || restaurant.votes;
     restaurant.save(function(err) {
       if (err) {
       	res.send(500, { error: 'POST restaurants failed.' });

@@ -2,17 +2,18 @@ var express    = require('express');
 var bodyParser = require('body-parser');
 var mongoose   = require('mongoose');
 var Restaurant = require('./app/models/restaurant');
+var User = require('./app/models/user');
 
 var app        = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
-                replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };       
+var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+                replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
 
 mongoose.connect('mongodb://admin:admin@ds059644.mongolab.com:59644/nomsdb');
 
-var conn = mongoose.connection;  
-conn.on('error', console.error.bind(console, 'connection error:'));  
+var conn = mongoose.connection;
+conn.on('error', console.error.bind(console, 'connection error:'));
 
 var port = process.env.PORT || 8080;
 
@@ -36,7 +37,7 @@ router.use(function(req, res, next) {
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
-  res.status(200).json({ message: 'Welcome to Noms: The Api™' });   
+  res.status(200).json({ message: 'Welcome to Noms: The Api™' });
 });
 
 router.route('/restaurants')

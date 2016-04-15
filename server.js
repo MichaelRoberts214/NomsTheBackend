@@ -26,7 +26,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-// API ROUTES
+// RESTAURANT routes
 var router = express.Router();
 
 // middleware to use for all requests

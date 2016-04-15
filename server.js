@@ -44,11 +44,16 @@ router.route('/restaurants')
     var restaurant = new Restaurant();
     restaurant.name = req.body.restaurant.name || req.body.name || restaurant.name;
     restaurant.votes = req.body.restaurant.votes || req.body.votes || restaurant.votes;
+    var name = restaurant.name
     restaurant.save(function(err) {
       if (err) {
       	res.send(500, { error: 'POST restaurants failed.' });
       } else {
-      	res.status(200).json({ message: req.body });
+        Restaurant.findOne({name: name}, function(err, resta) {
+          console.log(resta);
+          // this doesn't work
+      	  res.status(200).json(resta);
+        })
       }
     });
   })

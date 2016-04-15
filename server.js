@@ -107,6 +107,74 @@ router.route('/restaurants/:restaurant_id')
       });
     });
 
+// USER routes
+router.route('/users')
+  .post(function(req, res) {
+    var user = new User();
+    user.name = req.body.user.name || req.body.name || user.name;
+    user.votes = req.body.user.votes || req.body.votes || user.votes;
+    var name = user.name
+    user.save(function(err) {
+      if (err) {
+      	res.send(500, { error: 'POST users failed.' });
+      } else {
+        User.findOne({name: name}, function(err, resta) {
+          console.log(resta);
+          // this doesn't work
+      	  res.status(200).json(resta);
+        })
+      }
+    });
+  })
+
+  .get(function(req, res) {
+    User.find(function(err, users) {
+      if (err) {
+        res.send(500, {error: 'GET users failed.'});
+      } else {
+      	res.status(200).json({"users": users});
+      }
+    });
+  });
+
+router.route('/users/:user_id')
+  .get(function(req, res) {
+    User.findById(req.params.user_id, function(err, user) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+    		res.status(200).json({"user": user});
+      }
+    });
+  })
+
+  .put(function(req, res) {
+    User.findById(req.params.user_id, function(err, user) {
+      if (err) {
+        res.status(500).send(err);
+      }
+      user.name = req.body.user.name || req.body.name || user.name;
+      user.votes = req.body.user.votes || req.body.votes || user.votes;
+      user.save(function(err) {
+        if (err) {
+          res.status(500).send(err);
+        }
+        res.status(200).json({ message: req.body });
+      });
+    })
+   })
+
+  .delete(function(req, res) {
+      User.remove({
+        _id: req.params.user_id
+      }, function(err, restaurant) {
+        if (err) {
+            res.status(500).send(err);
+        }
+        res.status(200).json({ message: 'Successfully deleted.' });
+      });
+    });
+
 // REGISTER ROUTES
 // all routes will be prefixed with /api
 app.use('/api', router);

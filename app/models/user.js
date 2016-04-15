@@ -3,7 +3,7 @@ var Schema       = mongoose.Schema;
 
 var UserSchema   = new Schema({
     name: {type: String, default: 'Generic User Name'},
-    here: Boolean
+    here: {type: Boolean, default: true}
 });
 
 module.exports = mongoose.model('User', UserSchema);

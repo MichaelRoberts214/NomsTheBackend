@@ -112,7 +112,7 @@ router.route('/users')
   .post(function(req, res) {
     var user = new User();
     user.name = req.body.user.name || req.body.name || user.name;
-    user.votes = req.body.user.votes || req.body.votes || user.votes;
+    user.votes = req.body.user.here || req.body.here || user.here;
     var name = user.name
     user.save(function(err) {
       if (err) {
@@ -154,7 +154,7 @@ router.route('/users/:user_id')
         res.status(500).send(err);
       }
       user.name = req.body.user.name || req.body.name || user.name;
-      user.votes = req.body.user.votes || req.body.votes || user.votes;
+      user.here = req.body.user.here || req.body.here || user.here;
       user.save(function(err) {
         if (err) {
           res.status(500).send(err);

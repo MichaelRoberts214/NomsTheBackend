@@ -32,6 +32,7 @@ var router = express.Router();
 // middleware to use for all requests
 router.use(function(req, res, next) {
   console.log('Logging: Something is happening.');
+  console.log(req.method, req.body);
   next();
 });
 
@@ -110,17 +111,15 @@ router.route('/restaurants/:restaurant_id')
 // USER routes
 router.route('/users')
   .post(function(req, res) {
-    var user = new User();
-    user.name = req.body.user.name || req.body.name || user.name;
-    user.votes = req.body.user.here || req.body.here || user.here;
+    user.name = req.body.user.name;
+    user.votes = req.body.user.here;
     var name = user.name
+    console.log('after', user);
     user.save(function(err) {
       if (err) {
       	res.send(500, { error: 'POST users failed.' });
       } else {
         User.findOne({name: name}, function(err, resta) {
-          console.log(resta);
-          // this doesn't work
       	  res.status(200).json(resta);
         })
       }
@@ -153,8 +152,10 @@ router.route('/users/:user_id')
       if (err) {
         res.status(500).send(err);
       }
-      user.name = req.body.user.name || req.body.name || user.name;
-      user.here = req.body.user.here || req.body.here || user.here;
+      user.name = req.body.user.name;
+      user.here = req.body.user.here;
+      // above two lines don't do anything
+      console.log('from put', user);
       user.save(function(err) {
         if (err) {
           res.status(500).send(err);
